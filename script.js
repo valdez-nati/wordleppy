@@ -1,52 +1,76 @@
 let intentos = 6;
-let diccionario =  ['APPLE', 'HURLS', 'WINGS', 'YOUTH'];
-const palabra = diccionario[Math.floor(Math.random() * diccionario.length)];
-
 const button = document.getElementById("guess-button");
-console.log(palabra);
 const input = document.getElementById("guess-input");
 const valor = input.value;
+let palabra;
+
+
+
+
+fetch('https://random-word-api.herokuapp.com/word?lang=es&length=5')
+    .then(response => response.json())
+    .then(response => {
+
+        console.log('desde API', response);
+        palabra = response[0].toUpperCase();
+        console.log(palabra);
+
+    })
+
+    .catch(err => {
+        let diccionario =  ['ACTOR', 'AGUDO', 'BUENO', 'CAJAS'];
+        palabra = diccionario[Math.floor(Math.random() * diccionario.length)];
+
+        console.log("ocurrió un error");
+
+
+    });
+
+
 button.addEventListener('click', intentar); 
-
-
 
 function intentar(){
     const INTENTO = leerIntento();
-    if (INTENTO === palabra ) {
-        console.log("GANASTE!")
-        terminar("<h1>GANASTE!!</h1>")
-        return
-    }
-    const GRID = document.getElementById("grid");
-    const ROW = document.createElement('div');
-    ROW.className = 'row';
-    
-    // Crear una fila para cada intento
-    const SPAN = document.createElement('span');
-    SPAN.className = 'letter';
-    for (let i in palabra){
-        const letraSpan = document.createElement('span');
-        letraSpan.className = 'letter';
-        if (INTENTO[i] === palabra[i]){
-            letraSpan.innerHTML = INTENTO[i];
-            letraSpan.style.backgroundColor = 'green';
-        } else if (palabra.includes(INTENTO[i])){
-            letraSpan.innerHTML = INTENTO[i];
-            letraSpan.style.backgroundColor = 'yellow';
-        } else {
-            letraSpan.innerHTML = INTENTO[i];
-            letraSpan.style.backgroundColor = 'grey';
+    if (INTENTO.length !== 5) {
+        alert("Por favor, ingresa exactamente 5 letras.");
+        return;
+    } else{
+        if (INTENTO === palabra ) {
+            console.log("GANASTE!")
+            terminar("<h1>GANASTE!!</h1>")
+            return
         }
-        ROW.appendChild(letraSpan);
-    }
-    GRID.appendChild(ROW);
-    
-    // Reducir el número de intentos
-    intentos--;
-    if (intentos === 0){
-        console.log("PERDISTE!");
-        terminar("<h1>PERDISTE!!</h1>")
-        return
+        const GRID = document.getElementById("grid");
+        const ROW = document.createElement('div');
+        ROW.className = 'row';
+        
+        // Crear una fila para cada intento
+        const SPAN = document.createElement('span');
+        SPAN.className = 'letter';
+        for (let i in palabra){
+            const letraSpan = document.createElement('span');
+            letraSpan.className = 'letter';
+            if (INTENTO[i] === palabra[i]){
+                letraSpan.innerHTML = INTENTO[i];
+                letraSpan.style.backgroundColor = 'green';
+            } else if (palabra.includes(INTENTO[i])){
+                letraSpan.innerHTML = INTENTO[i];
+                letraSpan.style.backgroundColor = 'yellow';
+            } else {
+                letraSpan.innerHTML = INTENTO[i];
+                letraSpan.style.backgroundColor = 'grey';
+            }
+            ROW.appendChild(letraSpan);
+        }
+        GRID.appendChild(ROW);
+        
+        // Reducir el número de intentos
+        intentos--;
+        if (intentos === 0){
+            console.log("PERDISTE!");
+            terminar("<h1>PERDISTE!!</h1>")
+            return
+        }
     }
 }
 
