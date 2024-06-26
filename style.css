@@ -1,0 +1,108 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+h1 {
+    text-align: center;
+    margin-top: 30px;
+    font-size: 24px;
+}
+
+#guess-input {
+    display: block;
+    margin: 0 auto 20px;
+    padding: 10px;
+    font-size: 16px;
+    width: 100%;
+    max-width: 250px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+#guess-button {
+    display: block;
+    margin: 0 auto;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #0CBABA;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: transform 0.1s;
+}
+
+button:active {
+    transform: scale(0.95);
+}
+
+.letter {
+    border: 1px solid black;
+    padding: 3px;
+    margin: 3px;
+    min-width: 20px;
+    text-align: center;
+    display: inline-block;
+    font-size: 14px;
+}
+
+.row {
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+.input-area {
+    margin: 30px auto;
+    max-width: 300px;
+}
+
+/* Media Queries para responsividad */
+@media (max-width: 600px) {
+    h1 {
+        font-size: 20px;
+    }
+
+    #guess-input {
+        font-size: 14px;
+    }
+
+    #guess-button {
+        font-size: 14px;
+        padding: 8px 16px;
+    }
+
+    .letter {
+        font-size: 12px;
+        min-width: 18px;
+    }
+}
+
+@media (max-width: 400px) {
+    body {
+        padding: 10px;
+    }
+
+    h1 {
+        font-size: 18px;
+    }
+
+    #guess-input {
+        font-size: 12px;
+    }
+
+    #guess-button {
+        font-size: 12px;
+        padding: 6px 12px;
+    }
+
+    .letter {
+        font-size: 10px;
+        min-width: 16px;
+        padding: 2px;
+        margin: 2px;
+    }
+}
