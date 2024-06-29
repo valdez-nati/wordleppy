@@ -1,11 +1,29 @@
 let intentos = 6;
-let diccionario = ['APPLE', 'HURLS', 'WINGS', 'YOUTH'];
-const palabra = diccionario[Math.floor(Math.random() * diccionario.length)];
-
-console.log("La palabra seleccionada es:", palabra);
+//let diccionario = ['APPLE', 'HURLS', 'WINGS', 'YOUTH'];
+//const palabra = diccionario[Math.floor(Math.random() * diccionario.length)];
+let palabra;
 
 const button = document.getElementById("guess-button");
 button.addEventListener('click', intentar);
+fetch('https://random-word-api.herokuapp.com/word?lang=es&length=5')
+    .then(response => response.json())
+    .then(response => {
+
+        console.log('desde API', response);
+        palabra = response[0].toUpperCase();
+        console.log(palabra);
+
+    })
+
+    .catch(err => {
+        let diccionario =  ['ACTOR', 'AGUDO', 'BUENO', 'CAJAS'];
+        palabra = diccionario[Math.floor(Math.random() * diccionario.length)];
+
+        console.log("ocurrió un error");
+
+
+    });
+
 
 function intentar() {
     const INTENTO = leerIntento();
